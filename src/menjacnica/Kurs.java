@@ -3,6 +3,7 @@ package menjacnica;
 public class Kurs {
 	private double prodajniKurs , srednjiKurs, kupovniKurs;
 
+	
 	public double getProdajniKurs() {
 		return prodajniKurs;
 	}
