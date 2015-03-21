@@ -8,6 +8,8 @@ public class Kurs {
 	}
 
 	public void setProdajniKurs(double prodajniKurs) {
+		if(prodajniKurs<=0) throw new RuntimeException("Prodajni kurs je pozitivan broj.");
+		
 		this.prodajniKurs = prodajniKurs;
 	}
 
@@ -16,6 +18,8 @@ public class Kurs {
 	}
 
 	public void setSrednjiKurs(double srednjiKurs) {
+		if(srednjiKurs<=0) throw new RuntimeException("Srednji kurs je pozitivan broj.");
+		
 		this.srednjiKurs = srednjiKurs;
 	}
 
@@ -24,6 +28,8 @@ public class Kurs {
 	}
 
 	public void setKupovniKurs(double kupovniKurs) {
+		if(kupovniKurs<=0) throw new RuntimeException("Kupovni kurs je pozitivan broj.");
+		
 		this.kupovniKurs = kupovniKurs;
 	}
 
