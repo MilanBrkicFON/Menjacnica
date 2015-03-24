@@ -22,7 +22,7 @@ public class Valute extends Kurs{
 		return naziv;
 	}
 	public void setNaziv(String naziv) {
-		if(naziv == null)
+		if(naziv == null || naziv.isEmpty())
 			throw new RuntimeException("Naziv ne sme biti null");
 		this.naziv = naziv;
 	}
@@ -31,8 +31,11 @@ public class Valute extends Kurs{
 	
 	}
 	public void setSkraceniNaziv(String skraceniNaziv) {
-		if(skraceniNaziv != null && skraceniNaziv.length() == 3 && skraceniNaziv.equalsIgnoreCase(skraceniNaziv))
+		if(skraceniNaziv != null && skraceniNaziv.length() == 3
+				&& skraceniNaziv.equalsIgnoreCase(skraceniNaziv) && !skraceniNaziv.isEmpty())
+			
 			this.skraceniNaziv = skraceniNaziv;
+		
 		else throw new RuntimeException("Skraceni naziv ima 3 karaktera ili je lose unet.");
 	}
 	public GregorianCalendar getDatum() {
@@ -48,8 +51,10 @@ public class Valute extends Kurs{
 		return kurs;
 	}
 	public void setKurs(Kurs kurs) {
+		if(kurs == null){
+			throw new RuntimeException("Unet objekat je null");
+		}
 		this.kurs = kurs;
-		
 	}
 	
 	public int hashCode() {

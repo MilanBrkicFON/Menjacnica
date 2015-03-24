@@ -19,9 +19,11 @@ public class Kurs {
 	}
 
 	public void setSrednjiKurs(double srednjiKurs) {
-		if(srednjiKurs<=0) throw new RuntimeException("Srednji kurs je pozitivan broj.");
+		if(srednjiKurs<=0) 
+			throw new RuntimeException("Srednji kurs je pozitivan broj.");
 		
-		this.srednjiKurs = srednjiKurs;
+		if(srednjiKurs>=getKupovniKurs() && srednjiKurs<=getProdajniKurs())
+			this.srednjiKurs = srednjiKurs;
 	}
 
 	public double getKupovniKurs() {
