@@ -11,27 +11,23 @@ public class Menjacnica implements interfejsValuta{
 
 	public void brisanjeKursaValuteNaDan(Valute valuta, GregorianCalendar zaDan) {
 				
-		if(valutaLista.contains(valuta)){
-			for (int i = 0; i < valutaLista.size(); i++) {
-				if(valutaLista.get(i).getDatum().equals(zaDan)){
-//					valutaLista.get(i).setKurs(null);
-//					valutaLista.get(i).getKurs().setKupovniKurs(0);
-//					valutaLista.get(i).getKurs().setProdajniKurs(0);
-//					valutaLista.get(i).getKurs().setSrednjiKurs(0);
-					valutaLista.remove(valutaLista.get(i).getKurs());
-					
-				}
-			}
+		if(!valutaLista.contains(valuta)){
+			throw new RuntimeException("Nepostojeca valuta");
 		}
 		
+		for (int i = 0; i < valutaLista.size(); i++) {
+			if(valutaLista.get(i).getDatum().equals(zaDan) && valutaLista.get(i).equals(valuta)){
+				valutaLista.remove(valutaLista.get(i).getKurs());
+			}
+		}
 	}
 
-	@Override
+	
 	public Kurs pronadjiKursValuteNaDan(String naziv, String skraceniNaziv, GregorianCalendar dan) {
 		
 		Kurs k = new Kurs();
 		
-		if(naziv.isEmpty() || skraceniNaziv.isEmpty()){
+		if(naziv.isEmpty() || naziv == "" || skraceniNaziv.isEmpty() || skraceniNaziv == ""){
 			throw new RuntimeException("Prazni stringovi! ");
 		}
 		
@@ -46,28 +42,19 @@ public class Menjacnica implements interfejsValuta{
 	}
 
 	@Override
-	public void dodavanjeKursaValuteNaDan(Valute valuta, GregorianCalendar zaDan, double srednjiKurs,
-			double prodajniKurs, double kupovniKurs) throws Exception {
+	public void dodavanjeKursaValuteNaDan(Valute valuta, GregorianCalendar zaDan, Kurs kurs) throws Exception {
 		
-		if(srednjiKurs <= 0 || prodajniKurs <= 0 || kupovniKurs <= 0){
-			throw new Exception("Kurs mora da je veci od nule!");
+		if(kurs == null){
+			throw new Exception("Kurs ne sme biti null!");
 		}
 		if(valuta == null){ 
 			throw new Exception("Greska! Objekat valuta je null");
 		}
 		
-		Kurs k = new Kurs();
-		k.setKupovniKurs(kupovniKurs);
-		k.setProdajniKurs(prodajniKurs);
-		k.setSrednjiKurs(srednjiKurs);
-		
 		if(valutaLista.contains(valuta)){
 			for (int i = 0; i < valutaLista.size(); i++) {
 				if(valutaLista.get(i).equals(valuta) && valutaLista.get(i).getDatum().equals(zaDan)){
-					
-					Valute v = new Valute(valuta.getNaziv(), valuta.getSkraceniNaziv(), zaDan, k);
-					valutaLista.add(v);
-					
+					valutaLista.add(new Valute(valuta.getNaziv(), valuta.getSkraceniNaziv(), zaDan, kurs));	
 				}
 			}
 		}
